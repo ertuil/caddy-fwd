@@ -1,0 +1,22 @@
+host_var {
+    tls_var #tls cert_var key_var
+    log / stdout "{remote} - {user} [{when}] \"{method} {host}{uri} {proto}\" {status} {size}"
+
+    rewrite_var
+
+    forwardproxy {
+        ports 80 81 82 8080 443 8443 465
+        response_timeout 10
+        dial_timeout 10
+
+        auth_var  #basicauth user Password
+        probe_var #probe_resistance login.localhost
+
+        hide_via
+        hide_ip
+        acl {
+            deny 192.168.0.0/16 10.0.0.0/8 100.64.0.0/10 172.16.0.0/12
+            allow all
+        }
+    }
+}
