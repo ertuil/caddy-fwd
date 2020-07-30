@@ -10,6 +10,7 @@ WORKDIR /app
 EXPOSE 80 443 2015
 COPY --from=builder /go/bin/caddy /app/caddy
 #COPY Caddyfile start.sh /app/
+RUN apk add bash
 COPY start_server.sh /app/
-RUN apk add bash && mkdir -p /app/www && chmod +x /app/start_server.sh
+RUN mkdir -p /app/www && chmod +x /app/start_server.sh
 ENTRYPOINT ["bash","-c","/app/start_server.sh"]
