@@ -1,4 +1,4 @@
-docker build -t caddy-fwd .
+docker build -t ertuil/caddy-fwd .
 docker run -p 80:80 \
     -e USERNAME=caddy \
     -e PASSWORD=caddy \
